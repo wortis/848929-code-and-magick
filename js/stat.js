@@ -1,3 +1,4 @@
+'use strict';
 var CloudWidth = 420;
 var CloudHeight = 270;
 var CloudX = 100;
@@ -24,13 +25,18 @@ function createStatRect(ctx, x, y, width, height, color) {
 }
 
 function getRandomBlueColor() {
-  return 'rgb(0, 0, ' + (Math.random() * 255) + ')';
+
+  return 'hsl(240, ' + Math.floor(Math.random() * 100) + '%, ' + Math.floor(Math.random() * 75) + '%)';
 }
 
 function getMaxNumber(array) {
+  if (array.length === 0 || array === null) {
+    return null;
+  }
+
   var max = array[0];
 
-  for (var i = 0; i < array.length; i++) {
+  for (var i = 0; i < array.length - 1; i++) {
     if (array[i] > max) {
       max = array[i];
     }
@@ -45,19 +51,18 @@ function printStatText(ctx, text, x, y, color) {
 }
 
 window.renderStatistics = function (ctx, names, times) {
-  renderCloud(ctx, CloudX + ShadowCloudOffset, CloudY + ShadowCloudOffset, 'rgba(0, 0, 0, 0.9)');
-  renderCloud(ctx, CloudX, CloudY, '#fff');
-
   var startStatX = StatX + StatWidth;
   var textResultOffsetY = 30;
+  var pxRate = getMaxNumber(times) / 100;
+
+  renderCloud(ctx, CloudX + ShadowCloudOffset, CloudY + ShadowCloudOffset, 'rgba(0, 0, 0, 0.7)');
+  renderCloud(ctx, CloudX, CloudY, '#fff');
 
   ctx.font = '16px "PT Mono"';
   ctx.fillStyle = '#000';
   ctx.fillText('Ура вы победили!', startStatX, CloudY + textResultOffsetY);
   textResultOffsetY += 20;
   ctx.fillText('Список результатов:', startStatX, CloudY + textResultOffsetY);
-
-  var pxRate = getMaxNumber(times) / 100;
 
   for (var i = 0; i < names.length; i++) {
     var columnColor = names[i] === 'Вы' ? 'red' : getRandomBlueColor();
