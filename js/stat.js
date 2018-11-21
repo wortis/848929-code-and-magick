@@ -30,13 +30,13 @@ function getRandomBlueColor() {
 }
 
 function getMaxNumber(array) {
-  if (array.length === 0 || array === null) {
+  if (array.length === 0) {
     return null;
   }
 
   var max = array[0];
 
-  for (var i = 0; i < array.length - 1; i++) {
+  for (var i = 0; i <= array.length - 1; i++) {
     if (array[i] > max) {
       max = array[i];
     }
@@ -51,10 +51,15 @@ function printStatText(ctx, text, x, y, color) {
 }
 
 window.renderStatistics = function (ctx, names, times) {
+  
+  if (names.length === 0 && times.length === 0){
+    return null;
+  }
+
   var startStatX = StatX + StatWidth;
   var textResultOffsetY = 30;
   var pxRate = getMaxNumber(times) / 100;
-
+  
   renderCloud(ctx, CloudX + ShadowCloudOffset, CloudY + ShadowCloudOffset, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CloudX, CloudY, '#fff');
 
@@ -64,7 +69,7 @@ window.renderStatistics = function (ctx, names, times) {
   textResultOffsetY += 20;
   ctx.fillText('Список результатов:', startStatX, CloudY + textResultOffsetY);
 
-  for (var i = 0; i < names.length; i++) {
+  for (var i = 0; i <= names.length - 1; i++) {
     var columnColor = names[i] === 'Вы' ? 'red' : getRandomBlueColor();
     var columnHeight = (times[i] / pxRate) * (StatHeight / 100);
     createStatRect(ctx, startStatX, StatY + (StatHeight - columnHeight), StatWidth, columnHeight, columnColor);
