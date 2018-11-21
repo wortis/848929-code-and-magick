@@ -51,15 +51,12 @@ function printStatText(ctx, text, x, y, color) {
 }
 
 window.renderStatistics = function (ctx, names, times) {
-  
-  if (names.length === 0 && times.length === 0){
-    return null;
-  }
 
   var startStatX = StatX + StatWidth;
   var textResultOffsetY = 30;
   var pxRate = getMaxNumber(times) / 100;
-  
+  var maxTime = getMaxNumber(times);
+
   renderCloud(ctx, CloudX + ShadowCloudOffset, CloudY + ShadowCloudOffset, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CloudX, CloudY, '#fff');
 
@@ -68,15 +65,16 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Ура вы победили!', startStatX, CloudY + textResultOffsetY);
   textResultOffsetY += 20;
   ctx.fillText('Список результатов:', startStatX, CloudY + textResultOffsetY);
+  if (maxTime !== null) {
+    for (var i = 0; i <= names.length - 1; i++) {
+      var columnColor = names[i] === 'Вы' ? 'red' : getRandomBlueColor();
+      var columnHeight = (times[i] / pxRate) * (StatHeight / 100);
+      createStatRect(ctx, startStatX, StatY + (StatHeight - columnHeight), StatWidth, columnHeight, columnColor);
 
-  for (var i = 0; i <= names.length - 1; i++) {
-    var columnColor = names[i] === 'Вы' ? 'red' : getRandomBlueColor();
-    var columnHeight = (times[i] / pxRate) * (StatHeight / 100);
-    createStatRect(ctx, startStatX, StatY + (StatHeight - columnHeight), StatWidth, columnHeight, columnColor);
+      printStatText(ctx, names[i], startStatX, StatY + StatHeight + TextNameOffsetY, columnColor);
+      printStatText(ctx, Math.round(times[i]), startStatX, StatY + (StatHeight - columnHeight) - TextTimeOffsetY, columnColor);
 
-    printStatText(ctx, names[i], startStatX, StatY + StatHeight + TextNameOffsetY, columnColor);
-    printStatText(ctx, Math.round(times[i]), startStatX, StatY + (StatHeight - columnHeight) - TextTimeOffsetY, columnColor);
-
-    startStatX += StatOffsetX + StatWidth;
+      startStatX += StatOffsetX + StatWidth;
+    }
   }
 };
