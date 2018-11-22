@@ -30,7 +30,7 @@ function getRandomBlueColor() {
 }
 
 function getMaxNumber(array) {
-  if (array.length === 0) {
+  if (!Array.isArray()) {
     return null;
   }
 
