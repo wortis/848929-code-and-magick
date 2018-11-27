@@ -34,7 +34,7 @@ function generateListOfSimilarWizards(totalWizards) {
   return wizardsList;
 }
 
-function generateSimilarWizardsListElement(wizardElement) {
+function genWizardsList(wizardElement) {
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
   var similarWizardElement = similarWizardTemplate.cloneNode(true);
   var similarWizardName = similarWizardElement.querySelector('.setup-similar-label');
@@ -53,14 +53,14 @@ function renderListOfSimilarWizards(wizardsList) {
   var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < wizardsList.length; i++) {
-    fragment.appendChild(generateSimilarWizardsListElement(wizardsList[i]));
+    fragment.appendChild(genWizardsList(wizardsList[i]));
   }
 
   similarWizardsList.appendChild(fragment);
 }
 
 function showElement(element) {
-  element.classList.remove('hidden');
+  element.classList.toggle('hidden');
 }
 
 showElement(setup);
