@@ -27,18 +27,18 @@ function genListWizards(totalWizards) {
   }
   return wizardsList;
   function genWizardData() {
-  var Wizard = {
-    name: '',
-    coatColors: 0,
-    eyesColors: 0
-  };
+    var Wizard = {
+      name: '',
+      coatColors: 0,
+      eyesColors: 0
+    };
 
-  Wizard.name = genWizardName(NamesWizard, SurnamesWizard);
-  Wizard.coatColors = CoatColors[getRandomNumber(0, CoatColors.length - 1)];
-  Wizard.eyesColors = EyesColors[getRandomNumber(0, EyesColors.length - 1)];
+    Wizard.name = genWizardName(NamesWizard, SurnamesWizard);
+    Wizard.coatColors = CoatColors[getRandomNumber(0, CoatColors.length - 1)];
+    Wizard.eyesColors = EyesColors[getRandomNumber(0, EyesColors.length - 1)];
 
-  return Wizard;
-}
+    return Wizard;
+  }
 }
 
 function genWizardsListElement(wizardElement) {
