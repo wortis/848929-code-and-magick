@@ -29,13 +29,13 @@ function genListWizards(totalWizards) {
   function genWizardData() {
     var Wizard = {
       name: '',
-      coatColors: 0,
-      eyesColors: 0
+      coatColors: '',
+      eyesColors: ''
     };
 
     Wizard.name = genWizardName(NamesWizard, SurnamesWizard);
-    Wizard.coatColors = CoatColors[getRandomNumber(0, CoatColors.length - 1)];
-    Wizard.eyesColors = EyesColors[getRandomNumber(0, EyesColors.length - 1)];
+    Wizard.coatColor = CoatColors[getRandomNumber(0, CoatColors.length - 1)];
+    Wizard.eyesColor = EyesColors[getRandomNumber(0, EyesColors.length - 1)];
 
     return Wizard;
   }
@@ -45,12 +45,12 @@ function genWizardsListElement(wizardElement) {
   var WizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
   var WizardElement = WizardTemplate.cloneNode(true);
   var WizardName = WizardElement.querySelector('.setup-similar-label');
-  var WizardCoatColors = WizardElement.querySelector('.wizard-coat');
-  var WizardEyesColors = WizardElement.querySelector('.wizard-eyes');
+  var WizardCoatColor = WizardElement.querySelector('.wizard-coat');
+  var WizardEyesColor = WizardElement.querySelector('.wizard-eyes');
 
   WizardName.textContent = wizardElement.name;
-  WizardCoatColors.style.fill = wizardElement.coatColors;
-  WizardEyesColors.style.fill = wizardElement.eyesColors;
+  WizardCoatColor.style.fill = wizardElement.coatColor;
+  WizardEyesColor.style.fill = wizardElement.eyesColor;
 
   return WizardElement;
 }
