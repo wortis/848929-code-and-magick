@@ -81,43 +81,43 @@ function showElement(element) {
   element.classList.toggle('hidden');
 }
 
-var onPopupEscPress = function(evt) {
+function onPopupEscPress(evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     closePopup();
   }
-};
+}
 
-var openPopup = function() {
+function openPopup() {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
-};
+}
 
-var closePopup = function() {
+function closePopup() {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscPress);
-};
+}
 
-setupOpen.addEventListener('click', function() {
+setupOpen.addEventListener('click', function () {
   openPopup();
 });
 
-setupOpen.addEventListener('keydown', function(evt) {
+setupOpen.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     openPopup();
   }
 });
 
-setupClose.addEventListener('click', function() {
+setupClose.addEventListener('click', function () {
   closePopup();
 });
 
-setupClose.addEventListener('keydown', function(evt) {
+setupClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     closePopup();
   }
 });
 
-userNameInput.addEventListener('invalid', function (evt) {
+userNameInput.addEventListener('invalid', function () {
   if (userNameInput.validity.tooShort) {
     userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
   } else if (userNameInput.validity.tooLong) {
@@ -131,17 +131,17 @@ userNameInput.addEventListener('invalid', function (evt) {
 
 function getRandomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
-};
+}
 
 
 wizardCoat.addEventListener('click', function () {
   var Coat = [
-  'rgb(101, 137, 164)',
-  'rgb(241, 43, 107)',
-  'rgb(146, 100, 161)',
-  'rgb(56, 159, 117)',
-  'rgb(215, 210, 55)',
-  'rgb(0, 0, 0)'];
+    'rgb(101, 137, 164)',
+    'rgb(241, 43, 107)',
+    'rgb(146, 100, 161)',
+    'rgb(56, 159, 117)',
+    'rgb(215, 210, 55)',
+    'rgb(0, 0, 0)'];
 
   wizardCoat.style.fill = getRandomItem(Coat);
   setupInputCoat.value = wizardCoat.style.fill;
@@ -149,24 +149,24 @@ wizardCoat.addEventListener('click', function () {
 
 wizardEyes.addEventListener('click', function () {
   var Eyes = [
-  'black',
-  'red',
-  'blue',
-  'yellow',
-  'green'];
-  
+    'black',
+    'red',
+    'blue',
+    'yellow',
+    'green'];
+
   wizardEyes.style.fill = getRandomItem(Eyes);
   setupInputEyes.value = wizardEyes.style.fill;
 });
 
 wizardFireball.addEventListener('click', function () {
   var Fireball = [
-  '#ee4830',
-  '#30a8ee',
-  '#5ce6c0',
-  '#e848d5',
-  '#e6e848'];
-  
+    '#ee4830',
+    '#30a8ee',
+    '#5ce6c0',
+    '#e848d5',
+    '#e6e848'];
+
   var color = getRandomItem(Fireball);
   wizardFireball.style.background = color;
   setupInputFireball.value = color;
