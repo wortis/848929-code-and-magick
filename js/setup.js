@@ -14,10 +14,19 @@ var setupInputFireball = setup.querySelector('.setup-fireball-wrap input');
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
 
-showElement(setup);
 showElement(setupSimilar);
 
 rendListWizards(genListWizards(4));
+
+setupOpen.addEventListener('click', openPopup);
+setupClose.addEventListener('click', closePopup);
+
+userNameInput.addEventListener('invalid', bugRep);
+
+wizardCoat.addEventListener('click', toggleCoatColor);
+wizardEyes.addEventListener('click', toggleEyesColor);
+wizardFireball.addEventListener('click', toggleFireballColor);
+
 
 function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -87,37 +96,7 @@ function onPopupEscPress(evt) {
   }
 }
 
-function openPopup() {
-  setup.classList.remove('hidden');
-  document.addEventListener('keydown', onPopupEscPress);
-}
-
-function closePopup() {
-  setup.classList.add('hidden');
-  document.removeEventListener('keydown', onPopupEscPress);
-}
-
-setupOpen.addEventListener('click', function () {
-  openPopup();
-});
-
-setupOpen.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    openPopup();
-  }
-});
-
-setupClose.addEventListener('click', function () {
-  closePopup();
-});
-
-setupClose.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    closePopup();
-  }
-});
-
-userNameInput.addEventListener('invalid', function () {
+function bugRep () {
   if (userNameInput.validity.tooShort) {
     userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
   } else if (userNameInput.validity.tooLong) {
@@ -127,14 +106,13 @@ userNameInput.addEventListener('invalid', function () {
   } else {
     userNameInput.setCustomValidity('');
   }
-});
+}
 
 function getRandomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-
-wizardCoat.addEventListener('click', function () {
+function toggleCoatColor () {
   var Coat = [
     'rgb(101, 137, 164)',
     'rgb(241, 43, 107)',
@@ -145,9 +123,9 @@ wizardCoat.addEventListener('click', function () {
 
   wizardCoat.style.fill = getRandomItem(Coat);
   setupInputCoat.value = wizardCoat.style.fill;
-});
+};
 
-wizardEyes.addEventListener('click', function () {
+function toggleEyesColor () {
   var Eyes = [
     'black',
     'red',
@@ -157,9 +135,9 @@ wizardEyes.addEventListener('click', function () {
 
   wizardEyes.style.fill = getRandomItem(Eyes);
   setupInputEyes.value = wizardEyes.style.fill;
-});
+};
 
-wizardFireball.addEventListener('click', function () {
+function toggleFireballColor () {
   var Fireball = [
     '#ee4830',
     '#30a8ee',
@@ -170,4 +148,36 @@ wizardFireball.addEventListener('click', function () {
   var color = getRandomItem(Fireball);
   wizardFireball.style.background = color;
   setupInputFireball.value = color;
+};
+function showElement(element) {
+  element.classList.toggle('hidden');
+}
+
+function onPopupEscPress(evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+}
+
+function openPopup() {
+  setup.classList.toggle('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+}
+
+function closePopup() {
+  setup.classList.toggle('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+}
+
+
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+});
+
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
 });
